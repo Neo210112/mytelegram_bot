@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 TELEGRAM_TOKEN = os.environ["TELEGRAM_TOKEN"]
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
-BOT_USERNAME = os.environ.get("BOT_USERNAME", "@your_chatgpt_bot")
+BOT_USERNAME = os.environ.get("BOT_USERNAME", "@MyGpt69_bot")
 
 def send_message(chat_id, text):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
