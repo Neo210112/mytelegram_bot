@@ -38,8 +38,17 @@ def webhook():
         msg = data["message"]
         chat_id = msg["chat"]["id"]
         text = msg.get("text", "")
-        if BOT_USERNAME in text or msg["chat"]["type"] == "private":
-            clean = text.replace(BOT_USERNAME, "").strip()
+# تغییرات برای تشخیص بهتر تگ
+   text_lower = text.lower().strip()
+   bot_username_lower = BOT_USERNAME.lower().strip()
+
+   if bot_username_lower in text_lower or message.get("chat", {}).get("type") == "private":
+      # پاک کردن یوزرنیم از متن (با case-insensitive)
+      clean_text = text_lower.replace(bot_username_lower, "").strip()
+      # اگر clean_text خالی بود، پیام اولیه رو نمایش بده
+      if not clean_text:
+        send_message(chat_id, "سلام! یه سوال بپرس تا جواب بدم 🤖")
+        return "OK"
             reply = ask_chatgpt(clean or "سلام!")
             send_message(chat_id, reply)
     return "OK"
