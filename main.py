@@ -51,6 +51,12 @@ def webhook():
         return "OK"
             reply = ask_chatgpt(clean or "سلام!")
             send_message(chat_id, reply)
+   if "gpt" in text_lower or "سوال" in text_lower or message.get("chat", {}).get("type") == "private":
+    clean_text = text_lower.replace("gpt", "").replace("سوال", "").strip()
+    if not clean_text:
+        clean_text = "سلام!"
+    response = ask_chatgpt(clean_text)
+    send_message(chat_id, response)
     return "OK"
 
 if name == "__main__":
